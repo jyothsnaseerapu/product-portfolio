@@ -18,11 +18,12 @@ def get_gemini_response(input,pdf_cotent,prompt):
 
 def input_pdf_setup(uploaded_file):
 
-    poppler_path = "C:\Program Files (x86)\poppler\Library\bin"
+    file_bytes = uploaded_file.read()
+    poppler = r"C:\Program Files (x86)\poppler\Library\bin"
 
     if uploaded_file is not None:
         ## Convert the PDF to image
-        images=pdf2image.convert_from_bytes(uploaded_file.read(),poppler_path=poppler_path)
+        images=pdf2image.convert_from_bytes(file_bytes,poppler_path=poppler)
 
         first_page=images[0]
 
