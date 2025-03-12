@@ -11,6 +11,23 @@ import google.generativeai as genai
 
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
+GA_TRACKING_ID = "G-R95E67QMV8"
+
+st.set_page_config(page_title="ATS Resume Expert")
+
+GA_SCRIPT = f"""
+    <script async src="https://www.googletagmanager.com/gtag/js?id={GA_TRACKING_ID}"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){{dataLayer.push(arguments);}}
+    gtag('js', new Date());
+    gtag('config', '{GA_TRACKING_ID}');
+    </script>
+"""
+
+st.markdown(GA_SCRIPT, unsafe_allow_html=True)
+
+
 def get_gemini_response(input,pdf_cotent,prompt):
     model=genai.GenerativeModel('gemini-1.5-flash')
     response=model.generate_content([input,pdf_content[0],prompt])
@@ -46,7 +63,7 @@ def input_pdf_setup(uploaded_file):
 
 ## Streamlit App
 
-st.set_page_config(page_title="ATS Resume Expert")
+#st.set_page_config(page_title="ATS Resume Expert")
 st.header("Increase Your Chance Of Getting Selected By Enhancing Your Resume For The Job Role")
 input_text=st.text_area("Job Description: ",key="input")
 uploaded_file=st.file_uploader("Upload your resume(PDF)...",type=["pdf"])
